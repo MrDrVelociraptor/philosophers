@@ -19,7 +19,7 @@ static size_t	isspace(char c)
 	return (0);
 }
 
-int	isdigit(int c)
+static int	isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);

@@ -23,12 +23,13 @@
 # include <sys/wait.h>
 # include <semaphore.h>
 # include <stdbool.h>
+# include <math.h>
 
 typedef struct s_philo
 {
 	int				phil_num;
-	int				number_of_times_each_philosopher_must_eat;
-	int				last_meal;
+	int				meals;
+	size_t			last_meal;
 	pthread_t		*philo_id;
 	pthread_mutex_t	fork;
 	struct s_data	*data;
@@ -42,11 +43,16 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				catering;
-	int				the_beginning;
+	size_t			the_beginning;
 	bool			done_eating;
 	bool			starvation;
 	t_philo			*philosopher;
 	pthread_mutex_t	print;
 }	t_data;
 
+void	set_the_table(t_data *data, char **argv);
+void	who_got_the_fork(t_data *data);
+size_t	whats_the_time_mr_wolf(void);
+void	print_status(t_data *data, int n);
+void	how_long(t_data *data, size_t time);
 #endif
