@@ -24,6 +24,7 @@ void	set_the_table(t_data *data, char **argv)
 	else
 		data->catering = -1;
 	pthread_mutex_init(&data->print, NULL);
+	who_got_the_fork(data);
 }
 
 void	who_got_the_fork(t_data *data)

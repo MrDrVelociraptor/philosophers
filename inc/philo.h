@@ -39,7 +39,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				who_at_dinner;
-	int				time_to_die;
+	size_t			time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				catering;
@@ -55,4 +55,14 @@ void	who_got_the_fork(t_data *data);
 size_t	whats_the_time_mr_wolf(void);
 void	print_status(t_data *data, int n);
 void	how_long(t_data *data, size_t time);
+void	lock_forks(t_philo *philo);
+void	food(t_data *data);
+void	rest(t_data *data);
+void	are_you(t_data *data);
+int		atoi(const char *str);
+void	dishes(t_data *data);
+void	status(t_data *data);
+void	threader(t_data *data);
+void	are_you_dead(t_data *data);
+
 #endif

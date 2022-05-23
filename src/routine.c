@@ -19,7 +19,6 @@ void	print_status(t_data *data, int n)
 	size_t	t2;
 
 	pthread_mutex_lock(&data->print);
-	data->the_beginning = whats_the_time_mr_wolf();
 	t2 = whats_the_time_mr_wolf() - data->the_beginning;
 	if (!data->starvation)
 	{
@@ -68,4 +67,18 @@ void	rest(t_data *data)
 	print_status(&data->philosopher->phil_num, 4);
 	how_long(&data->philosopher->phil_num, data->time_to_sleep);
 	print_status(&data->philosopher->phil_num, 5);
+}
+
+void	are_you(t_data *data)
+{
+	if (data->philosopher->phil_num % 2 == 0)
+		usleep(1000);
+	while (!data->starvation && data->philosopher->meals != data->catering)
+	{
+		lock_forks(data->philosopher->phil_num);
+		food(data->philosopher->phil_num);
+		rest(data->philosopher->phil_num);
+	}
+	if (data->philosopher->meals == data->catering)
+		data->done_eating = true;
 }

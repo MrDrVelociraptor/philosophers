@@ -32,14 +32,3 @@ void	how_long(t_data *data, size_t time)
 		usleep(100);
 	}
 }
-
-int	main()//int argc, char **argv)
-{
-	t_data	data;
-
-	print_status(&data);
-	
-	
-	return (0);
-}
-

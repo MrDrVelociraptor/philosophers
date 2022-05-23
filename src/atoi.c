@@ -49,3 +49,18 @@ int	atoi(const char *str)
 	}
 	return (result * negpos);
 }	
+
+void	dishes(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->who_at_dinner)
+	{
+		pthread_mutex_destroy(&data->philosopher[i].fork);
+		i++;
+	}
+	pthread_mutex_destroy(&data->print);
+	free(data->philosopher);
+	exit(0);
+}
