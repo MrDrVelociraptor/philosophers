@@ -25,7 +25,7 @@ void	how_long(t_data *data, size_t time)
 	size_t	curr;
 
 	curr = whats_the_time_mr_wolf();
-	while (!(data->starvation))
+	while (!(data->dead))
 	{
 		if (whats_the_time_mr_wolf() - curr >= time)
 			break;

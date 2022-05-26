@@ -55,12 +55,12 @@ void	dishes(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->who_at_dinner)
+	while (i < data->nop)
 	{
-		pthread_mutex_destroy(&data->philosopher[i].fork);
+		pthread_mutex_destroy(&data->philo[i].fork);
 		i++;
 	}
 	pthread_mutex_destroy(&data->print);
-	free(data->philosopher);
+	free(data->philo);
 	exit(0);
 }

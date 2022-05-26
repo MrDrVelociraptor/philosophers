@@ -12,17 +12,14 @@
 
 #include "philo.h"
 
-void	set_the_table(t_data *data, char **argv)
+void	init_args(t_data *data, char **argv)
 {
 	memset(data, 0, sizeof(t_data));
-	data->who_at_dinner = atoi(argv[1]);
-	data->time_to_die = atoi(argv[2]);
-	data->time_to_eat = atoi(argv[3]);
-	data->time_to_sleep = atoi(argv[4]);
-	if (argv[5])
-		data->catering = atoi(argv[5]);
-	else
-		data->catering = -1;
+	data->nop = atoi(argv[1]);
+	data->ttd = atoi(argv[2]);
+	data->tte = atoi(argv[3]);
+	data->tts = atoi(argv[4]);
+	data->start_time = whats_the_time_mr_wolf();
 	pthread_mutex_init(&data->print, NULL);
 	who_got_the_fork(data);
 }
@@ -31,18 +28,17 @@ void	who_got_the_fork(t_data *data)
 {
 	int	i;
 
-	data->philosopher = (t_philo *)malloc(data->who_at_dinner * sizeof(t_philo));
 	i = 0;
-	while (i < data->who_at_dinner)
+	data->philo = (t_philo *)malloc(data->nop * sizeof(t_philo));
+	while (i < data->nop)
 	{
-		data->philosopher[i].data = data;
-		data->philosopher[i].meals = 0;
-		data->philosopher[i].phil_num = i + 1;
-		pthread_mutex_init(&data->philosopher[i].fork, NULL);
-		if (i + 1 == data->who_at_dinner)
-			data->philosopher[i].forking_thief = &data->philosopher[0];
+		data->philo[i].data = data;
+		data->philo[i].philo_num = i + 1;
+		pthread_mutex_init(&data->philo[i].fork, NULL);
+		if (i == data->nop)
+			data->philo[i].philo_to_right = &data->philo[0];
 		else
-			data->philosopher[i].forking_thief = &data->philosopher[i + 1];
+			data->philo[i].philo_to_right = &data->philo[i + 1];
 		i++;
 	}
 }

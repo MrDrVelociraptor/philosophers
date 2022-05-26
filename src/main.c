@@ -17,31 +17,31 @@ void	threader(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->who_at_dinner)
+	while (i < data->nop)
 	{
-		pthread_create(data->philosopher[i].philo_id, NULL, are_you, &data->philosopher[i]);
-		data->philosopher[i].last_meal = data->the_beginning;
+		pthread_create(&data->philo[i].philosopher, NULL, &actions, &data->philo[i]);
+		data->philo[i].time_since_last_food = data->start_time;
 		i++;
 	}
 }
 
-void	status(t_data *data)
+void	status(t_data *data, t_philo *philo)
 {
-	while (!data->done_eating && !data->starvation)
-		are_you_dead(data);
+	while (!data->done_eating && !data->dead)
+		are_you_dead(data, philo);
 }
 
-void	are_you_dead(t_data *data)
+void	are_you_dead(t_data *data, t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	while (!data->starvation && i < data->who_at_dinner)
+	while (!data->dead && i < data->nop)
 	{
-		if (whats_the_time_mr_wolf() - data->philosopher[i].last_meal >= data->time_to_die)
+		if (whats_the_time_mr_wolf() - data->philo[i].time_since_last_food >= data->ttd)
 		{
-			data->starvation = true;
-			print_status(data, 6);
+			data->dead = true;
+			print_status(data, philo, 6);
 			dishes(data);
 		}
 	}
@@ -51,18 +51,21 @@ int	main(int argc, char **argv)
 {
 	int		i;
 	t_data	data;
+	t_philo	philo;
 
 	i = 0;
 	if (argc < 5 || argc > 7)
 		return (0);
-	if (argv[1] < '2')
-		printf("Can't eat with only one fork apparently\n");
-	set_the_table(&data, argv);
-	data.the_beginning = whats_the_time_mr_wolf();
+	
+	init_args(&data, argv);
+	data.start_time = whats_the_time_mr_wolf();
 	threader(&data);
-	status(&data);
-	while (i < data.who_at_dinner)
-		pthread_join(*data.philosopher[i].philo_id, NULL);
+	status(&data, &philo);
+	while (i < data.nop)
+	{
+		pthread_join(data.philo[i].philosopher, NULL);
+		i++;
+	}
 	dishes(&data);
 	return (0);
 }
