@@ -40,8 +40,8 @@ typedef struct s_data
 {
 	int				who_at_dinner;
 	size_t			time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
 	int				catering;
 	size_t			the_beginning;
 	bool			done_eating;
@@ -58,7 +58,7 @@ void	how_long(t_data *data, size_t time);
 void	lock_forks(t_philo *philo);
 void	food(t_data *data);
 void	rest(t_data *data);
-void	are_you(t_data *data);
+void	*are_you(t_data *data);
 int		atoi(const char *str);
 void	dishes(t_data *data);
 void	status(t_data *data);

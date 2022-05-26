@@ -55,7 +55,7 @@ void	food(t_data *data)
 {
 	data = data->philosopher->data;
 	data->philosopher->meals++;
-	print_status(&data, 3);
+	print_status(data, 3);
 	data->philosopher->last_meal = whats_the_time_mr_wolf();
 	usleep(1000);
 	pthread_mutex_unlock(&data->philosopher->fork);
@@ -64,12 +64,12 @@ void	food(t_data *data)
 
 void	rest(t_data *data)
 {
-	print_status(&data->philosopher->phil_num, 4);
-	how_long(&data->philosopher->phil_num, data->time_to_sleep);
-	print_status(&data->philosopher->phil_num, 5);
+	print_status(data->philosopher->phil_num, 4);
+	how_long(data->philosopher->phil_num, data->time_to_sleep);
+	print_status(data->philosopher->phil_num, 5);
 }
 
-void	are_you(t_data *data)
+void	*are_you(t_data *data)
 {
 	if (data->philosopher->phil_num % 2 == 0)
 		usleep(1000);
@@ -81,4 +81,5 @@ void	are_you(t_data *data)
 	}
 	if (data->philosopher->meals == data->catering)
 		data->done_eating = true;
+	return (NULL);
 }

@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 	threader(&data);
 	status(&data);
 	while (i < data.who_at_dinner)
-		pthread_join(data.philosopher[i].philo_id, NULL);
+		pthread_join(*data.philosopher[i].philo_id, NULL);
 	dishes(&data);
 	return (0);
 }
