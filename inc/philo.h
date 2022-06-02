@@ -25,42 +25,32 @@
 # include <stdbool.h>
 # include <math.h>
 
-typedef struct s_philo
+typedef struct	s_philo
 {
-	int				philo_num;
-	size_t			time_since_last_food;
-	pthread_t		philosopher;
+	int				place;
+	int				hunger;
+	bool			dead;
+	pthread_t		people;
+	pthread_t		watcher;
 	pthread_mutex_t	fork;
-	struct s_data	*data;
-	struct s_philo	*philo_to_right;
+	struct s_philo	*neighbour;
+	struct s_info	*info;
 }	t_philo;
 
-typedef struct s_data
+typedef struct s_info
 {
 	int				nop;
-	size_t			ttd;
-	size_t			tte;
-	size_t			tts;
-	size_t			start_time;
-	bool			done_eating;
-	bool			dead;
-	t_philo			*philo;
+	int				ttd;
+	int				tte;
+	int				tts;
+	int				start;
 	pthread_mutex_t	print;
-}	t_data;
+	t_philo			*philo;
+}	t_info;
 
-void	init_args(t_data *data, char **argv);
-void	who_got_the_fork(t_data *data);
-size_t	whats_the_time_mr_wolf(void);
-void	print_status(t_data *data, t_philo *philo, int n);
-void	how_long(t_data *data, size_t time);
-void	lock_forks(t_data *data, t_philo *philo);
-void	food(t_philo *philo);
-void	rest(t_philo *philo);
-void	*actions(void *philosopher);
-int		atoi(const char *str);
-void	dishes(t_data *data);
-void	status(t_data *data, t_philo *philo);
-void	threader(t_data *data);
-void	are_you_dead(t_data *data, t_philo *philo);
+void	init_args(t_info *info, char **argv);
+int		t_time(void);
+void	timer(t_philo	*philo, unsigned long time);
+void	init_mutexes(t_info *info);
 
 #endif

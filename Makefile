@@ -5,10 +5,10 @@ SRC = src/*.c
 INC = inc
 
 HEADERS = -I$(INC)
-FLAGS = -Wall -Werror -Wextra $(HEADERS)
+FLAGS = -Wall -Werror -Wextra -pthread $(HEADERS)
 
 all:
-	@gcc $(SRC) $(FLAGS) -o philo 
+	@gcc $(FLAGS) $(SRC) -o philo 
 	@echo Good to go
 	
 

@@ -12,33 +12,51 @@
 
 #include "philo.h"
 
-void	init_args(t_data *data, char **argv)
+void	init_args(t_info *info, char **argv)
 {
-	memset(data, 0, sizeof(t_data));
-	data->nop = atoi(argv[1]);
-	data->ttd = atoi(argv[2]);
-	data->tte = atoi(argv[3]);
-	data->tts = atoi(argv[4]);
-	data->start_time = whats_the_time_mr_wolf();
-	pthread_mutex_init(&data->print, NULL);
-	who_got_the_fork(data);
+	memset(info, 0, sizeof(t_info));
+	info->nop = atoi(argv[1]);
+	info->ttd = atoi(argv[2]);
+	info->tte = atoi(argv[3]);
+	info->tts = atoi(argv[4]);
+	printf("ttd is %i\n", info->ttd);
+	printf("tte is %i\n", info->tte);
+	printf("tts is %i\n", info->tts);
 }
 
-void	who_got_the_fork(t_data *data)
+void	init_mutexes(t_info *info)
 {
 	int	i;
 
 	i = 0;
-	data->philo = (t_philo *)malloc(data->nop * sizeof(t_philo));
-	while (i < data->nop)
+	info->philo = (t_philo *)malloc(info->nop * sizeof(t_philo));
+	memset(info->philo, 0, sizeof(t_philo) * info->nop);
+	pthread_mutex_init(&info->print, NULL);
+	printf("There are %i Philosophers\n", info->nop);
+	while (i < info->nop)
 	{
-		data->philo[i].data = data;
-		data->philo[i].philo_num = i + 1;
-		pthread_mutex_init(&data->philo[i].fork, NULL);
-		if (i == data->nop)
-			data->philo[i].philo_to_right = &data->philo[0];
-		else
-			data->philo[i].philo_to_right = &data->philo[i + 1];
+		//info->philo[i].info = info;
+		info->philo[i].place = i + 1;
+		printf("Philosopher %i is alive\n", info->philo[i].place);
+		pthread_mutex_init(&info->philo[i].fork, NULL);
+		info->philo[i].neighbour = &info->philo[(i + 1) % info->nop];
+		// if (i == info->nop - 1)
+		// 	info->philo[i].neighbour = &info->philo[0];
+		// else
+		// 	info->philo[i].neighbour = &info->philo[i + 1];
 		i++;
 	}
 }
+
+// void	init_thread(t_info *info)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < info->nop)
+// 	{
+// 		pthread_create(&info->philo[i].people, NULL,
+// 			&est, &info->philo[i]);
+// 		info->philo[i].hunger = info->start;
+// 	}
+// }

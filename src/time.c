@@ -12,23 +12,25 @@
 
 #include "philo.h"
 
-size_t	whats_the_time_mr_wolf(void) //returns time in milliseconds since 1/1/1970
+int	t_time(void)
 {
-	struct timeval	spag;
+	int				time;
+	struct timeval	curr_time;
 
-	gettimeofday(&spag, NULL);
-	return ((spag.tv_sec * 1000) + (spag.tv_usec / 1000));
+	gettimeofday(&curr_time, NULL);
+	time = ((curr_time.tv_sec * 1000) + (curr_time.tv_usec / 1000));
+	return (time);
 }
 
-void	how_long(t_data *data, size_t time)
+void	timer(t_philo	*philo, unsigned long time)
 {
-	size_t	curr;
+	long	curr;
 
-	curr = whats_the_time_mr_wolf();
-	while (!(data->dead))
+	curr = clock();
+	while (!philo->dead)
 	{
-		if (whats_the_time_mr_wolf() - curr >= time)
+		usleep(time * 1000);
+		if (clock() - curr >= time)
 			break;
-		usleep(100);
 	}
 }

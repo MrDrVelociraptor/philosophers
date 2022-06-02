@@ -50,17 +50,17 @@ int	atoi(const char *str)
 	return (result * negpos);
 }	
 
-void	dishes(t_data *data)
-{
-	int	i;
+// void	dishes(t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < data->nop)
-	{
-		pthread_mutex_destroy(&data->philo[i].fork);
-		i++;
-	}
-	pthread_mutex_destroy(&data->print);
-	free(data->philo);
-	exit(0);
-}
+// 	i = 0;
+// 	while (i < data->nop)
+// 	{
+// 		pthread_mutex_destroy(&data->philo[i].fork);
+// 		i++;
+// 	}
+// 	pthread_mutex_destroy(&data->print);
+// 	free(data->philo);
+// 	exit(0);
+// }
