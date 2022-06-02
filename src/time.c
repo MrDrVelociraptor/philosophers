@@ -14,7 +14,7 @@
 
 int	t_time(void)
 {
-	int				time;
+	int	time;
 	struct timeval	curr_time;
 
 	gettimeofday(&curr_time, NULL);
@@ -22,15 +22,33 @@ int	t_time(void)
 	return (time);
 }
 
-void	timer(t_philo	*philo, unsigned long time)
+void	are_you_dead(t_info *info)
 {
-	long	curr;
+	int	i;
 
-	curr = clock();
-	while (!philo->dead)
+	i = 0;
+	while (!info->philo->dead && i < info->nop)
 	{
-		usleep(time * 1000);
-		if (clock() - curr >= time)
-			break;
+		if (t_time() - info->philo[i].hunger >= info->ttd)
+		{
+			info->philo->dead = true;
+			status(info, 6);
+			dishes(info);
+		}
 	}
+}
+
+void	dishes(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->nop)
+	{
+		pthread_mutex_destroy(&info->philo[i].fork);
+		i++;
+	}
+	pthread_mutex_destroy(&info->print);
+	free(info->philo);
+	exit(0);
 }

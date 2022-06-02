@@ -12,14 +12,14 @@
 
 #include	"philo.h"
 
-static size_t	isspace(char c)
+static size_t	is_space(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
 		return (1);
 	return (0);
 }
 
-static int	isdigit(int c)
+static int	is_digit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -34,7 +34,7 @@ int	atoi(const char *str)
 
 	result = 0;
 	negpos = 1;
-	while (isspace(*str))
+	while (is_space(*str))
 		str++;
 	if (*str == '+' || *str == '-')
 	{
@@ -42,7 +42,7 @@ int	atoi(const char *str)
 			negpos *= -1;
 		str++;
 	}
-	while (isdigit(*str))
+	while (is_digit(*str))
 	{
 		result *= 10;
 		result += *str++ - '0';

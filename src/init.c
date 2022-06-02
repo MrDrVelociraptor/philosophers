@@ -30,9 +30,9 @@ void	init_mutexes(t_info *info)
 
 	i = 0;
 	info->philo = (t_philo *)malloc(info->nop * sizeof(t_philo));
-	memset(info->philo, 0, sizeof(t_philo) * info->nop);
-	pthread_mutex_init(&info->print, NULL);
-	printf("There are %i Philosophers\n", info->nop);
+	//memset(info->philo, 0, sizeof(t_philo) * info->nop);
+	if(!pthread_mutex_init(&info->print, NULL))
+		printf("Printing locked\n");
 	while (i < info->nop)
 	{
 		//info->philo[i].info = info;
@@ -48,15 +48,19 @@ void	init_mutexes(t_info *info)
 	}
 }
 
-// void	init_thread(t_info *info)
-// {
-// 	int	i;
+void	init_thread(t_info *info)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < info->nop)
-// 	{
-// 		pthread_create(&info->philo[i].people, NULL,
-// 			&est, &info->philo[i]);
-// 		info->philo[i].hunger = info->start;
-// 	}
-// }
+	i = 0;
+	info->philo[i].hunger = 0;
+	printf("nop = %i\n", info->nop);
+	while (i < info->nop)
+	{
+		pthread_create(&info->philo[i].people, NULL,
+			&est, &info->philo[i]);
+		info->philo[i].hunger = info->start;
+		printf("hunger = %i\n", info->philo[i].hunger);
+		i++;
+	}
+}
