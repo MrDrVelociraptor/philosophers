@@ -21,14 +21,15 @@
 # include <pthread.h>
 # include <signal.h>
 # include <sys/wait.h>
-# include <semaphore.h>
+// # include <semaphore.h>
 # include <stdbool.h>
-# include <math.h>
 
 typedef struct s_philo
 {
 	int				place;
 	size_t			hunger;
+	int				times_eatn;
+	bool			full;
 	bool			dead;
 	pthread_t		people;
 	pthread_mutex_t	fork;
@@ -39,6 +40,8 @@ typedef struct s_philo
 typedef struct s_info
 {
 	int				nop;
+	int				servings;
+	int				full_bellies;
 	size_t			ttd;
 	size_t			tte;
 	size_t			tts;

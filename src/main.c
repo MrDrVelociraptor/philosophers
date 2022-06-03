@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static bool	str_len(char *num)
+static int	str_len(char *num)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ static bool	check_args(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 5)
+	if (argc < 5 || argc > 7)
 		return (0);
 	while (argv[i])
 	{

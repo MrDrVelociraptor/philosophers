@@ -27,13 +27,16 @@ void	are_you_dead(t_info *info)
 	i = 0;
 	while (!info->philo->dead && i < info->nop)
 	{
-		if (t_time() - info->philo[i].hunger >= info->ttd)
+		if (t_time() - info->philo->hunger >= info->ttd)
 		{
 			info->philo->dead = true;
 			status(info, info->philo, 5);
-			dishes(info);
+	
 		}
+		if (info->full_bellies == info->nop || info->philo->dead)
+			dishes(info);
 	}
+	
 }
 
 void	dishes(t_info *info)

@@ -28,6 +28,8 @@ void	status(t_info *info, t_philo *philo, int n)
 		printf("%lims Philo %i is thinking\n", stamp, philo->place);
 	if (n == 5)
 		printf("%lims Philo %i has died\n", stamp, philo->place);
+	if (n == 6)
+		printf("%lims Philo %i has eatn %i times\n", stamp, philo->place, philo->times_eatn);
 	pthread_mutex_unlock(&info->print);
 }
 
@@ -70,6 +72,13 @@ void	*est(void *philosopher)
 		lock_forks(philo);
 		food(philo);
 		rest(philo);
+	}
+	philo->times_eatn++;
+	if (info->philo->times_eatn >= info->servings)
+	{	
+		info->philo->full = true;
+		info->full_bellies++;
+		status(info, info->philo, 6);
 	}
 	return (NULL);
 }

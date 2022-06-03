@@ -19,6 +19,14 @@ void	init_args(t_info *info, char **argv)
 	info->ttd = atoi(argv[2]);
 	info->tte = atoi(argv[3]);
 	info->tts = atoi(argv[4]);
+	if (argv[5])
+		info->servings = atoi(argv[5]);
+	printf("nop = %i\n", info->nop);
+	printf("nop = %zu\n", info->ttd);
+	printf("nop = %zu\n", info->tte);
+	printf("nop = %zu\n", info->tts);
+	printf("nop = %i\n", info->servings);
+
 }
 
 void	init_mutexes(t_info *info)
