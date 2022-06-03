@@ -6,7 +6,7 @@
 /*   By: nspeedy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 09:30:07 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/05/12 09:30:09 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/06/03 11:32:06 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include <stdbool.h>
 # include <math.h>
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				place;
-	int	hunger;
+	size_t			hunger;
 	bool			dead;
 	pthread_t		people;
 	pthread_mutex_t	fork;
@@ -39,29 +39,25 @@ typedef struct	s_philo
 typedef struct s_info
 {
 	int				nop;
-	int	ttd;
-	int	tte;
-	int	tts;
-	int	start;
+	size_t			ttd;
+	size_t			tte;
+	size_t			tts;
+	size_t			start;
 	pthread_mutex_t	print;
 	t_philo			*philo;
 }	t_info;
 
-void			init_args(t_info *info, char **argv);
-int	t_time(void);
-void			timer(t_info *info, t_philo	*philo, int long time);
-void			init_mutexes(t_info *info);
+void	init_args(t_info *info, char **argv);
+size_t	t_time(void);
+void	timer(t_info *info, t_philo	*philo, size_t time);
+void	init_mutexes(t_info *info);
 void	*est(void *philosopher);
-void	rest(t_info *info);
-void	food(t_info *info);
-void	lock_forks(t_info *info);
-void    status(t_info *info, int n);
+void	rest(t_philo *philo);
+void	food(t_philo *philo);
+void	lock_forks(t_philo *philo);
+void	status(t_info *info, t_philo *philo, int n);
 void	are_you_dead(t_info *info);
 void	dishes(t_info *info);
 void	init_thread(t_info *info);
-
-
-
-
 
 #endif

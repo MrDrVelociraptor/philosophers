@@ -12,55 +12,24 @@
 
 #include	"philo.h"
 
-static size_t	is_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == ' ')
-		return (1);
-	return (0);
-}
-
-static int	is_digit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
 int	atoi(const char *str)
 {
-	int	result;
-	int	negpos;
+	int	value;
+	int	posneg;
 
-	result = 0;
-	negpos = 1;
-	while (is_space(*str))
+	value = 0;
+	posneg = 1;
+	while (*str == '\f' || *str == '\r' || *str == '\n'
+		|| *str == '\t' || *str == '\v' || *str == ' ')
 		str++;
-	if (*str == '+' || *str == '-')
+	if (*str == '-')
+		posneg = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
 	{
-		if (*str == '-')
-			negpos *= -1;
+		value = (value * 10) + (*str - '0');
 		str++;
 	}
-	while (is_digit(*str))
-	{
-		result *= 10;
-		result += *str++ - '0';
-	}
-	return (result * negpos);
-}	
-
-// void	dishes(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < data->nop)
-// 	{
-// 		pthread_mutex_destroy(&data->philo[i].fork);
-// 		i++;
-// 	}
-// 	pthread_mutex_destroy(&data->print);
-// 	free(data->philo);
-// 	exit(0);
-// }
+	return (value * posneg);
+}

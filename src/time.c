@@ -12,14 +12,12 @@
 
 #include "philo.h"
 
-int	t_time(void)
+size_t	t_time(void)
 {
-	int	time;
 	struct timeval	curr_time;
 
 	gettimeofday(&curr_time, NULL);
-	time = ((curr_time.tv_sec * 1000) + (curr_time.tv_usec / 1000));
-	return (time);
+	return ((curr_time.tv_sec * 1000) + (curr_time.tv_usec / 1000));
 }
 
 void	are_you_dead(t_info *info)
@@ -32,7 +30,7 @@ void	are_you_dead(t_info *info)
 		if (t_time() - info->philo[i].hunger >= info->ttd)
 		{
 			info->philo->dead = true;
-			status(info, 6);
+			status(info, info->philo, 5);
 			dishes(info);
 		}
 	}
